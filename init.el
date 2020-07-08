@@ -120,6 +120,10 @@
 ;; switch buffers, and choose options from the minibuffer.
 (load "navigation.el")
 
+;; add integration for janet
+(load "janet-mode.el")
+(load "ijanet.el")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -224,6 +228,12 @@
 (global-set-key (kbd "C-o") 'other-window)
 (global-set-key (kbd "C-x o") 'open-line)
 
+;; janet reply key bindings
+(global-set-key (kbd "C-c C-p") 'ijanet)
+(global-set-key (kbd "C-c C-b") 'ijanet-eval-buffer)
+(global-set-key (kbd "C-c C-l") 'ijanet-eval-line)
+(global-set-key (kbd "C-c C-r") 'ijanet-eval-region)
+
 ;; rebind some common functions for dealin w/ windows
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-2") 'split-window-vertically)
@@ -255,3 +265,10 @@
   (setq slime-load-failed-fasl 'never))
 (add-hook 'lisp-mode-hook 'lisp-hook-fn)
 (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+
+;; add key bindings to change ibuffer behavior to allow my new C-o
+(defun ibuffer-hook-fn ()
+  (interactive)
+  (local-set-key (kbd "C-o") 'other-window)
+  (local-set-key (kbd "C-x o") 'open-line))
+(add-hook 'ibuffer-mode-hook 'ibuffer-hook-fn)

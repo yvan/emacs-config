@@ -123,6 +123,7 @@
 ;; add integration for janet
 (load "janet-mode.el")
 (load "ijanet.el")
+(add-hook 'janet-mode-hook 'enable-paredit-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -272,3 +273,10 @@
   (local-set-key (kbd "C-o") 'other-window)
   (local-set-key (kbd "C-x o") 'open-line))
 (add-hook 'ibuffer-mode-hook 'ibuffer-hook-fn)
+
+;; add same behavior but for directory nav
+(defun dired-hook-fn ()
+  (interactive)
+  (local-set-key (kbd "C-o") 'other-window)
+  (local-set-key (kbd "C-x o") 'open-line))
+(add-hook 'dired-mode-hook 'dired-hook-fn)
